@@ -107,6 +107,8 @@ class AnchorScreen extends StatelessWidget {
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
+import 'favorite_widget.dart';
+
 class AnchorScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -134,8 +136,7 @@ class AnchorScreen extends StatelessWidget {
               ],
             ),
           ),
-          const Icon(Icons.anchor_outlined,color:Colors.red),
-          const Text("01")
+          const FavoriteWidget(isFavorited: false, favoriteCount: 2)
         ],
       ),
     );
