@@ -104,12 +104,16 @@ class AnchorScreen extends StatelessWidget {
 }
 
  */
+import 'package:anchor_app/anchor.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 import 'favorite_widget.dart';
 
 class AnchorScreen extends StatelessWidget {
+  const AnchorScreen({Key? key, required this.anchor}) : super(key: key);
+  final Anchor anchor;
+
   @override
   Widget build(BuildContext context) {
     Widget titleSection = Container(
@@ -122,13 +126,13 @@ class AnchorScreen extends StatelessWidget {
               children: [
                 Container(
                   padding: const EdgeInsets.only(bottom:8),
-                  child: const Text ("Ilot Maître",
-                      style: TextStyle(
+                  child: Text (anchor.title,
+                      style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20
                       )),
                 ),
-                Text ("Mouillage sud-est",
+                Text (anchor.direction,
                   style: TextStyle(
                       color: Colors.grey[500],
                       fontSize: 16
@@ -136,7 +140,7 @@ class AnchorScreen extends StatelessWidget {
               ],
             ),
           ),
-          const FavoriteWidget(isFavorited: false, favoriteCount: 2)
+           FavoriteWidget(isFavorited: anchor.isFavorite, favoriteCount: anchor.favoriteCount)
         ],
       ),
     );
@@ -146,17 +150,14 @@ class AnchorScreen extends StatelessWidget {
       child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _buildButtonColumn(Colors.blue, Icons.gps_fixed, "166.40965692666444 \n-22.33430032073978"),
-            _buildButtonColumn(Colors.blue, Icons.waves_rounded , "NE - E \n SE"),
+            _buildButtonColumn(Colors.blue, Icons.gps_fixed, anchor.location),
+            _buildButtonColumn(Colors.blue, Icons.waves_rounded , anchor.wind),
           ]),
     );
 
     Widget descriptionSection = Container(
         padding: const EdgeInsets.all(32),
-        child: const Text("Mouillage de jour (de nuit par alizé établi et stable).  \n"
-            "Des corps morts y sont disponibles."
-            " Attention d'éviter le récif se trouvant au nord-est si vous venez de Nouméa."
-            "\nIl y a un hôtel sur l'îlot.",
+        child: Text(anchor.description,
           softWrap: true,)
     );
     return Scaffold(
@@ -167,7 +168,7 @@ class AnchorScreen extends StatelessWidget {
             children: [
               CachedNetworkImage(
                 imageUrl:
-                'https://www.province-sud.nc/pandoreweb/pandore/photo/PhotoFile/ff80818167b930800167b93ab8ed04e5/fichier?_responseMode=binary',
+                anchor.imageUrl,
                 placeholder: (context, url) => const Center(child:CircularProgressIndicator()),
                 errorWidget: (context, url, error) => const Icon(Icons.error),
                 width: 600,

@@ -28,3 +28,16 @@ class Anchor {
 }
 
  */
+class Anchor {
+  String title;
+  String direction;
+  String imageUrl;
+  String location;
+  String wind;
+  String description;
+  bool isFavorite;
+  int favoriteCount;
+
+  Anchor(this.title, this.direction, this.imageUrl, this.location, this.wind,
+      this.description, this.isFavorite, this.favoriteCount);
+}
