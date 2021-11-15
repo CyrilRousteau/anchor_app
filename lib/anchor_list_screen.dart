@@ -3,8 +3,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 import 'anchor.dart';
 
-class AnchorListScreen extends StatelessWidget {
-   AnchorListScreen({Key? key}) : super(key: key);
+class AnchorListScreen extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return AnchorListScreenState();
+  }
+}
+
+class AnchorListScreenState extends State<AnchorListScreen> {
 
   final List<Anchor> anchors = [
     Anchor (
@@ -54,7 +60,17 @@ class AnchorListScreen extends StatelessWidget {
          body: ListView.builder(
            itemCount: anchors.length,
            itemBuilder: (context, index){
-             return AnchorItemWidget(anchor: anchors[index]);
+             final anchor = anchors[index];
+             return Dismissible(key: Key(anchor.title),
+                 onDismissed: (direction){
+               setState(() {
+                 anchors.removeAt(index);
+               });
+               ScaffoldMessenger.of(context).showSnackBar(
+                   SnackBar(content: Text("${anchor.title} supprimé")));
+                 },
+                 background: Container(color: Colors.blue,),
+                 child: AnchorItemWidget(anchor: anchor)); AnchorItemWidget(anchor: anchors[index]);
            },
          ),
     );
