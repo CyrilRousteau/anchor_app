@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 import 'anchor.dart';
+import 'anchor_screen.dart';
 
 class AnchorListScreen extends StatefulWidget {
   @override
@@ -83,41 +84,57 @@ class AnchorItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.all(8),
-      elevation: 8,
-      child: Row(
-        children: [
-          CachedNetworkImage(
-            imageUrl: anchor.imageUrl,
-            placeholder: (context, url) =>
-                const Center(
-              child: CircularProgressIndicator()),
-            errorWidget: (context, url, error) => const Icon(Icons.error),
-            width: 100,
-            height: 100,
-            fit: BoxFit.cover,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8),
-              child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: Text(anchor.title,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 20)),
-                ),
-                Text(
-                    anchor.direction,
-                    style:
-                    TextStyle(color: Colors.grey[500], fontSize: 16)
-                )
-              ],
+    return  GestureDetector(
+      onTap: (){
+        Navigator.push(context,
+            PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation)=> AnchorScreen(anchor: anchor),
+                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                return FadeTransition(
+                opacity: animation,
+                child: child,
+              );
+            }
+        ));
+      },
+        child: Card(
+        margin: const EdgeInsets.all(8),
+        elevation: 8,
+        child: Row(
+          children: [
+            Hero(
+              tag: "anchorRecipe" + anchor.title,
+              child: CachedNetworkImage(
+              imageUrl: anchor.imageUrl,
+              placeholder: (context, url) =>
+                  const Center(
+                child: CircularProgressIndicator()),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
+              width: 100,
+              height: 100,
+              fit: BoxFit.cover,
+            )),
+            Padding(
+              padding: const EdgeInsets.all(8),
+                child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: Text(anchor.title,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20)),
+                  ),
+                  Text(
+                      anchor.direction,
+                      style:
+                      TextStyle(color: Colors.grey[500], fontSize: 16)
+                  )
+                ],
+              )
             )
-          )
-        ],
+          ],
+        )
       )
     );
   }

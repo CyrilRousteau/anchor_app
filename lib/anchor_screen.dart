@@ -65,7 +65,9 @@ class AnchorScreen extends StatelessWidget {
         ),
         body: ListView(
             children: [
-              CachedNetworkImage(
+              Hero(
+                tag: "anchorRecipe" + anchor.title,
+                child: CachedNetworkImage(
                 imageUrl:
                 anchor.imageUrl,
                 placeholder: (context, url) => const Center(child:CircularProgressIndicator()),
@@ -73,7 +75,7 @@ class AnchorScreen extends StatelessWidget {
                 width: 600,
                 height: 240,
                 fit: BoxFit.cover,
-              ),
+              )),
               titleSection,
               buttonSection,
               descriptionSection,
