@@ -32,12 +32,12 @@ class Anchor {
   String title;
   String direction;
   String imageUrl;
-  String location;
+  String longLat;
   String wind;
   String description;
   bool isFavorite;
   int favoriteCount;
 
-  Anchor(this.title, this.direction, this.imageUrl, this.location, this.wind,
+  Anchor(this.title, this.direction, this.imageUrl, this.longLat,this.wind,
       this.description, this.isFavorite, this.favoriteCount);
 }
