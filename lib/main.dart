@@ -61,6 +61,10 @@ class _SplashScreenState extends State<SplashScreen> {
               height: 120,
             ),
             ),
+            const Text("Guide des Mouillages du lagon Sud",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold, fontSize: 20)),
             // logo here
 
             const SizedBox(
